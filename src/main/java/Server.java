@@ -11,18 +11,25 @@ public class Server {
     private ServerSocket serverSocket;
     private final Queue<Socket> clientQueue = new LinkedList<>();
     private Boolean isServerBusy;
-    public static String path = "/Users/wojciechrzucidlo/Desktop/sft";
+    public static String folderPath = "/Users/wojciechrzucidlo/IdeaProjects/kolokwium2_2023/src/main/java";
+    public static String filePath = "/Users/wojciechrzucidlo/IdeaProjects/kolokwium2_2023/src/main/java/images";
 
     public Server() throws IOException {
         ServerSocket serverSocket = new ServerSocket(5000);
     }
 
-    private void ClientHandler(Socket socket, String path) throws IOException {
+    private void ClientHandler(Socket socket, String filePath, String folderPath) throws IOException {
         LocalDate today = LocalDate.now();
         LocalDateTime now = LocalDateTime.now();
 
+        //Move to another method
+        File imagesFolder = new File(folderPath, "images");
+        if (!imagesFolder.exists()) {
+            imagesFolder.mkdir();
+        }
+
         String fileName = today + "/" + now + ".png";
-        File file = new File(path, fileName);
+        File file = new File(filePath, fileName);
 
         InputStream input = socket.getInputStream();
         FileOutputStream output = new FileOutputStream(file);
@@ -47,9 +54,9 @@ public class Server {
                 isServerBusy = true;
                 Socket nextSocket = clientQueue.poll();
                 if (nextSocket != null) {
-                    ClientHandler(nextSocket, path);
+                    ClientHandler(nextSocket, filePath);
                 } else {
-                    ClientHandler(socket, path);
+                    ClientHandler(socket, filePath);
                 }
                 isServerBusy = false;
             }
