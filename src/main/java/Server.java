@@ -45,21 +45,25 @@ public class Server {
         socket.close();
     }
 
-    public void listen() throws IOException {
+    public void listen(Boolean isServerBusy, ServerSocket serverSocket, Queue clientQueue, String folderPath, String filePath) throws IOException {
         while (true) {
             Socket socket = serverSocket.accept();
             if (isServerBusy) {
                 clientQueue.add(socket);
             } else {
                 isServerBusy = true;
-                Socket nextSocket = clientQueue.poll();
-                if (nextSocket != null) {
-                    ClientHandler(nextSocket, filePath);
-                } else {
-                    ClientHandler(socket, filePath);
-                }
-                isServerBusy = false;
+                //Socket nextSocket = clientQueue.poll();
+                ClientHandler(socket, filePath, folderPath);
             }
         }
+    }
+
+    private void blurImage() throws IOException {
+        
+    }
+
+    public static void main(String[] args) throws IOException {
+        Server server = new Server();
+        server.listen();
     }
 }
