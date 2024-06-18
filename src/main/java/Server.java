@@ -64,6 +64,7 @@ public class Server implements Runnable{
     @Override
     public void run() {
         try {
+            ServerSocket serverSocket = new ServerSocket(5000);
             Server server = new Server();
             server.listen();
         } catch (IOException e) {
