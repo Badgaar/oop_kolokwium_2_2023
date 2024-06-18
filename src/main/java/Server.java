@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Server {
+public class Server implements Runnable{
 
     private ServerSocket serverSocket;
-    private final Queue<Socket> clientQueue = new LinkedList<>();
+    private Queue<Socket> clientQueue = new LinkedList<>();
     private Boolean isServerBusy;
     public static String folderPath = "/Users/wojciechrzucidlo/IdeaProjects/kolokwium2_2023/src/main/java";
     public static String filePath = "/Users/wojciechrzucidlo/IdeaProjects/kolokwium2_2023/src/main/java/images";
@@ -45,14 +45,14 @@ public class Server {
         socket.close();
     }
 
-    public void listen(Boolean isServerBusy, ServerSocket serverSocket, Queue clientQueue, String folderPath, String filePath) throws IOException {
+    public void listen() throws IOException {
         while (true) {
             Socket socket = serverSocket.accept();
             if (isServerBusy) {
                 clientQueue.add(socket);
             } else {
                 isServerBusy = true;
-                //Socket nextSocket = clientQueue.poll();
+                Socket nextSocket = (Socket) clientQueue.poll();
                 ClientHandler(socket, filePath, folderPath);
             }
         }
@@ -61,8 +61,13 @@ public class Server {
     private void blurImage() throws IOException {
     }
 
-    public static void main(String[] args) throws IOException {
-        Server server = new Server();
-        server.listen();
+    @Override
+    public void run() {
+        try {
+            Server server = new Server();
+            server.listen();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
