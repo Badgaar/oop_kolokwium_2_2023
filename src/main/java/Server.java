@@ -59,11 +59,10 @@ public class Server {
     }
 
     private void blurImage() throws IOException {
-        
     }
 
     public static void main(String[] args) throws IOException {
         Server server = new Server();
-        server.listen(isServerBusy);
+        server.listen();
     }
 }
