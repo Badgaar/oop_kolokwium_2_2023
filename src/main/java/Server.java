@@ -22,7 +22,7 @@ public class Server {
         LocalDate today = LocalDate.now();
         LocalDateTime now = LocalDateTime.now();
 
-        File imagesFolder = new File(folderPath, "images")
+        File imagesFolder = new File(folderPath, "images");
 
         if (imagesFolder.exists()){
             return;
