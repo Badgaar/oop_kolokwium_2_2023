@@ -6,16 +6,16 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Server implements Runnable{
+public class Server {
 
     private ServerSocket serverSocket;
-    private Queue<Socket> clientQueue = new LinkedList<>();
+    private final Queue<Socket> clientQueue = new LinkedList<>();
     private Boolean isServerBusy;
     public static String folderPath = "/Users/wojciechrzucidlo/IdeaProjects/kolokwium2_2023/src/main/java";
     public static String filePath = "/Users/wojciechrzucidlo/IdeaProjects/kolokwium2_2023/src/main/java/images";
 
-    public Server() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(5000);
+    public Server(int port) throws IOException {
+        serverSocket = new ServerSocket(port);
     }
 
     private void ClientHandler(Socket socket, String filePath, String folderPath) throws IOException {
@@ -59,16 +59,5 @@ public class Server implements Runnable{
     }
 
     private void blurImage() throws IOException {
-    }
-
-    @Override
-    public void run() {
-        try {
-            ServerSocket serverSocket = new ServerSocket(5000);
-            Server server = new Server();
-            server.listen();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

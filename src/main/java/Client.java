@@ -3,16 +3,17 @@ import java.net.Socket;
 
 public class Client {
 
-    public static Socket connectToServer(String address, int port) {
+    Socket socket;
+
+    public void connectToServer(String address, int port) {
         try {
-            Socket socket = new Socket(address, port);
-            return socket;
+            socket = new Socket(address, port);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void send(String path, Socket socket) {
+    public void send(String path) {
         try {
             File file = new File(path);
             FileInputStream input = new FileInputStream(file);
@@ -33,7 +34,7 @@ public class Client {
         }
     }
 
-    public static void receive(Socket socket, String path) {
+    public void receive(String path) {
         try {
             DataInputStream input = new DataInputStream(socket.getInputStream());
             FileOutputStream output = new FileOutputStream(path);
@@ -56,11 +57,5 @@ public class Client {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void main(String[] args) {
-        Socket socket = connectToServer("localhost", 5000);
-        send("input.png", socket);
-        receive(socket, "output.png");
     }
 }
