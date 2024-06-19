@@ -22,9 +22,11 @@ public class Server {
         LocalDate today = LocalDate.now();
         LocalDateTime now = LocalDateTime.now();
 
-        //Move to another method
-        File imagesFolder = new File(folderPath, "images");
-        if (!imagesFolder.exists()) {
+        File imagesFolder = new File(folderPath, "images")
+
+        if (imagesFolder.exists()){
+            return;
+        } else {
             imagesFolder.mkdir();
         }
 
