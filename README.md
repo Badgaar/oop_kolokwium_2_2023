@@ -10,3 +10,10 @@ z klientów powinna wygladac w ten sam sposób:
 4. Przeksztalcenie obrazu algorytmem box blur.
 5. Zapisanie podsumowania przeksztalcenia do bazy danych.
 6. Odestanie pliku z przeksztaiconym obrazem klientowi.
+
+Kolokwium 2021
+https://pastebin.com/15pY1ZXp
+Kolokwium 2022
+https://pastebin.com/U19paQD9
+Kolokwium 2023
+https://pastebin.com/akncqPff
